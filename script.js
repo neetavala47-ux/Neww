@@ -1,44 +1,29 @@
-// Audio
-let audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b0f1c0b5e.mp3");
-
-// Function to play music and trigger celebration
 function playMusic() {
-    // Play audio
-    audio.play();
+    // Flying emojis and hearts
+    const emojis = ["💖","💕","💗","💓","💞","💘","🥳","🎉","✨","🎊"];
 
-    // Trigger celebration
-    createCelebration();
-}
+    // Create 50 emojis at once
+    for (let i = 0; i < 50; i++) {
+        let el = document.createElement("div");
+        el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        el.style.position = "fixed";
+        el.style.left = Math.random() * window.innerWidth + "px";
+        el.style.top = window.innerHeight + "px";
+        el.style.fontSize = 20 + Math.random() * 30 + "px";
+        el.style.zIndex = 9999;
+        el.style.pointerEvents = "none";
+        el.style.transition = "all 3s linear";
 
-// Function to create flying hearts/confetti
-function createCelebration() {
-    // Number of flying elements
-    let total = 50;
+        document.body.appendChild(el);
 
-    for (let i = 0; i < total; i++) {
-        let emoji = document.createElement("div");
-        emoji.classList.add("emoji");
+        setTimeout(() => {
+            el.style.top = "-100px";
+            el.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+            el.style.opacity = 0;
+        }, 50);
 
-        // Pick random emoji from list
-        let emojiList = ["❤️", "💖", "💘", "💝", "🎉", "✨", "🎊"];
-        emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-
-        // Random start position
-        emoji.style.left = Math.random() * window.innerWidth + "px";
-
-        // Random size
-        let size = Math.random() * 30 + 15;
-        emoji.style.fontSize = size + "px";
-
-        // Random animation duration
-        emoji.style.animationDuration = (Math.random() * 2 + 2) + "s";
-
-        // Append to body
-        document.body.appendChild(emoji);
-
-        // Remove after animation
-        emoji.addEventListener("animationend", () => {
-            emoji.remove();
-        });
+        setTimeout(() => {
+            el.remove();
+        }, 3000);
     }
-}
+                }
