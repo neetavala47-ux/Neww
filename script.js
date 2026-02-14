@@ -1,40 +1,44 @@
-function playMusicAndCelebrate() {
+// Audio
+let audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_8b0f1c0b5e.mp3");
 
-  // Softer instrumental music
-  const music = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3");
-  music.volume = 0.7;
-  music.play();
+// Function to play music and trigger celebration
+function playMusic() {
+    // Play audio
+    audio.play();
 
-  startCelebration();
+    // Trigger celebration
+    createCelebration();
 }
 
-function startCelebration() {
+// Function to create flying hearts/confetti
+function createCelebration() {
+    // Number of flying elements
+    let total = 50;
 
-  const symbols = ["❤️","💖","💘","💝","🥰","😍","🎉","✨","💞","🌸","🎊","💓","🥳","🎀"];
+    for (let i = 0; i < total; i++) {
+        let emoji = document.createElement("div");
+        emoji.classList.add("emoji");
 
-  setInterval(() => {
+        // Pick random emoji from list
+        let emojiList = ["❤️", "💖", "💘", "💝", "🎉", "✨", "🎊"];
+        emoji.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
 
-    const element = document.createElement("div");
-    element.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+        // Random start position
+        emoji.style.left = Math.random() * window.innerWidth + "px";
 
-    element.style.position = "fixed";
-    element.style.left = Math.random() * 100 + "vw";
-    element.style.top = "100vh";
-    element.style.fontSize = (25 + Math.random() * 45) + "px";
-    element.style.zIndex = "9999";
-    element.style.pointerEvents = "none";
-    element.style.transition = "transform 4s linear, opacity 4s linear";
+        // Random size
+        let size = Math.random() * 30 + 15;
+        emoji.style.fontSize = size + "px";
 
-    document.body.appendChild(element);
+        // Random animation duration
+        emoji.style.animationDuration = (Math.random() * 2 + 2) + "s";
 
-    setTimeout(() => {
-      element.style.transform = "translateY(-120vh)";
-      element.style.opacity = "0";
-    }, 50);
+        // Append to body
+        document.body.appendChild(emoji);
 
-    setTimeout(() => {
-      element.remove();
-    }, 4000);
-
-  }, 80); // 80 = VERY MANY emojis
+        // Remove after animation
+        emoji.addEventListener("animationend", () => {
+            emoji.remove();
+        });
+    }
 }
