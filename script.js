@@ -1,43 +1,28 @@
+const music = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+
 function playMusic() {
-
-  const music = document.getElementById("bgMusic");
-
-  music.volume = 0.6;
-
   music.play();
-  
-  function startSurprise() {
+  createHearts();
+}
 
-  // play music
+function createHearts() {
+  for (let i = 0; i < 25; i++) {
+    const heart = document.createElement("div");
+    heart.innerHTML = "💖";
+    heart.style.position = "fixed";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = Math.random() * 100 + "vh";
+    heart.style.fontSize = "20px";
+    heart.style.animation = "floatUp 2s ease-out forwards";
+    document.body.appendChild(heart);
 
-  const music = document.getElementById("bgMusic");
-
-  music.volume = 0.6;
-
-  music.loop = true;
-
-  music.play();
-
-  // create pop hearts
-
-  for (let i = 0; i < 20; i++) {
-
-    const pop = document.createElement("div");
-
-    pop.className = "pop";
-
-    pop.innerText = "💖";
-
-    pop.style.left = Math.random() * window.innerWidth + "px";
-
-    pop.style.top = Math.random() * window.innerHeight + "px";
-
-    document.body.appendChild(pop);
-
-    setTimeout(() => pop.remove(), 1500);
-
+    setTimeout(() => {
+      heart.remove();
+    }, 2000);
   }
-
 }
 
-}
+  
+
+
+
