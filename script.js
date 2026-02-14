@@ -1,28 +1,40 @@
-const music = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3");
+function playMusicAndCelebrate() {
 
-function playMusic() {
+  // Softer instrumental music
+  const music = new Audio("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3");
+  music.volume = 0.7;
   music.play();
-  createHearts();
+
+  startCelebration();
 }
 
-function createHearts() {
-  for (let i = 0; i < 25; i++) {
-    const heart = document.createElement("div");
-    heart.innerHTML = "💖";
-    heart.style.position = "fixed";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = Math.random() * 100 + "vh";
-    heart.style.fontSize = "20px";
-    heart.style.animation = "floatUp 2s ease-out forwards";
-    document.body.appendChild(heart);
+function startCelebration() {
+
+  const symbols = ["❤️","💖","💘","💝","🥰","😍","🎉","✨","💞","🌸","🎊","💓","🥳","🎀"];
+
+  setInterval(() => {
+
+    const element = document.createElement("div");
+    element.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+
+    element.style.position = "fixed";
+    element.style.left = Math.random() * 100 + "vw";
+    element.style.top = "100vh";
+    element.style.fontSize = (25 + Math.random() * 45) + "px";
+    element.style.zIndex = "9999";
+    element.style.pointerEvents = "none";
+    element.style.transition = "transform 4s linear, opacity 4s linear";
+
+    document.body.appendChild(element);
 
     setTimeout(() => {
-      heart.remove();
-    }, 2000);
-  }
+      element.style.transform = "translateY(-120vh)";
+      element.style.opacity = "0";
+    }, 50);
+
+    setTimeout(() => {
+      element.remove();
+    }, 4000);
+
+  }, 80); // 80 = VERY MANY emojis
 }
-
-  
-
-
-
